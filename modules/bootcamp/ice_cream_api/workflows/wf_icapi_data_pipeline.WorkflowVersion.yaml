@@ -20,7 +20,7 @@ workflowDefinition:
       type: 'transformation'
       parameters:
         transformation:
-          externalId: 'create_asset_hierarchy'
+          externalId: 'tr-create_asset_hierarchy'
           concurrencyPolicy: fail
       name: 'create_asset_hierarchy'
       description: create_asset_hierarchy
@@ -62,7 +62,7 @@ workflowDefinition:
       type: 'transformation'
       parameters:
         transformation:
-          externalId: 'icapi_ts_assets_contextualization'
+          externalId: 'tr-icapi_ts_assets_contextualization'
           concurrencyPolicy: fail
       name: 'icapi_ts_assets_contextualization'
       description: icapi_ts_assets_contextualization
