@@ -1,116 +1,109 @@
-- name: Frontfill every 10 minutes last hour of data (streamer)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: '*/10 * * * *'
-  authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Olso site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 0 0 * * *
+- name: Run calculations every 10 minutes for last hour of data
+  cronExpression: 5-59/10 * * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
     sites:
     - Oslo
-  authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Huston site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 1 0 * * *
-  data:
-    backfill: true
-    hours: 720
-    sites:
-    - Huston
-  authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Kuala Lumpur site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 2 0 * * *
-  data:
-    backfill: true
-    hours: 720
-    sites:
-    - Kuala Lumpur
-  authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Hannover site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 3 0 * * *
-  data:
-    backfill: true
-    hours: 720
-    sites:
     - Hannover
+    - Nuremberg
+    - Marseille
+    - Houston
+    - Sao_Paulo
+    - Kuala_Lumpur
+    - Chicago
+    - Rotterdam
+    - London
+    lookback_minutes: 60
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Nuremberg site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 4 0 * * *
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Oslo)
+  cronExpression: 0 1 * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
+    sites:
+    - Oslo
+    lookback_minutes: 7200
+  authentication:
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Nuremberg)
+  cronExpression: 1 1 * * *
+  functionExternalId: oee_timeseries
+  data:
     sites:
     - Nuremberg
+    lookback_minutes: 7200
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Marseille site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 5 0 * * *
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Marseille)
+  cronExpression: 2 1 * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
     sites:
     - Marseille
+    lookback_minutes: 7200
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Sao Paulo site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 6 0 * * *
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Houston)
+  cronExpression: 3 1 * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
     sites:
-    - Sao Paulo
+    - Houston
+    lookback_minutes: 7200
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Chicago site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 7 0 * * *
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Sao Paulo)
+  cronExpression: 4 1 * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
+    sites:
+    - Sao_Paulo
+    lookback_minutes: 7200
+  authentication:
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Kuala Lumpur)
+  cronExpression: 5 1 * * *
+  functionExternalId: oee_timeseries
+  data:
+    sites:
+    - Kuala_Lumpur
+    lookback_minutes: 7200
+  authentication:
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Chicago)
+  cronExpression: 6 1 * * *
+  functionExternalId: oee_timeseries
+  data:
     sites:
     - Chicago
+    lookback_minutes: 7200
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for Rotterdam site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 8 0 * * *
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (Rotterdam)
+  cronExpression: 7 1 * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
     sites:
     - Rotterdam
+    lookback_minutes: 7200
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
-- name: Backfill once a day for London site, last 30 days (gap filling)
-  functionExternalId: icapi_datapoints_extractor
-  cronExpression: 9 0 * * *
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
+- name: Run calculations once a day for 30 days history (London)
+  cronExpression: 8 1 * * *
+  functionExternalId: oee_timeseries
   data:
-    backfill: true
-    hours: 720
     sites:
     - London
+    lookback_minutes: 7200
   authentication:
-    clientId: ${ICAPI_EXTRACTORS_CLIENT_ID}
-    clientSecret: ${ICAPI_EXTRACTORS_CLIENT_SECRET}
+    clientId: ${DATA_PIPELINE_OEE_CLIENT_ID}
+    clientSecret: ${DATA_PIPELINE_OEE_CLIENT_SECRET}
